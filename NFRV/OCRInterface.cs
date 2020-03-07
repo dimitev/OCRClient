@@ -15,6 +15,9 @@ namespace NFRV
     {
         HttpClient client = new HttpClient();
         public System.Drawing.Bitmap image;
+        public string webServer = "";
+        string languageSuffix = "?lang=";
+        public string language = "bul";
 
         public string Recognize()
         {
@@ -24,7 +27,12 @@ namespace NFRV
 
             try
             {
-                webRequest = (HttpWebRequest)WebRequest.Create("http://192.168.0.102:5000/ocr?lang=bul");
+                if(webServer == ""|| webServer == null)
+                {
+                    MessageBox.Show("Web server not configured");
+                    return "Not configured web server";
+                }
+                webRequest = (HttpWebRequest)WebRequest.Create(webServer + languageSuffix + language);
                 webRequest.ContentType = "application/x-www-form-urlencoded";
                 webRequest.Method = "POST";
                 webRequest.Timeout = 5000;

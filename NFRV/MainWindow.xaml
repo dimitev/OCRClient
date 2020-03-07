@@ -11,14 +11,17 @@
         <Image x:Name="selectedImg" HorizontalAlignment="Left" Height="435" VerticalAlignment="Top" Width="764" Margin="10,28,0,0"/>
         <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="435" VerticalAlignment="Top" Width="764" Margin="10,28,0,0" MouseLeftButtonDown="Canvas_MouseLeftButtonDown" MouseLeftButtonUp="Canvas_MouseLeftButtonUp" MouseMove="Canvas_MouseMove"/>
         <Label Content="Recognized text:" HorizontalAlignment="Left" Margin="10,468,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="imagePath" HorizontalAlignment="Left" Height="19" Margin="10,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="335" Text=""/>
-        <Button x:Name="loadButton" Content="Open" HorizontalAlignment="Left" Margin="351,3,0,0" VerticalAlignment="Top" Width="72" Click="LoadButton_Click"/>
-        <Button x:Name="recognizeButton" Content="Recognize" HorizontalAlignment="Left" Margin="500,3,0,0" VerticalAlignment="Top" Width="74" Click="RecognizeButton_Click"/>
+        <TextBox x:Name="imagePath" HorizontalAlignment="Left" Height="19" Margin="10,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="295" Text=""/>
+        <Button x:Name="loadButton" Content="Open" HorizontalAlignment="Left" Margin="314,3,0,0" VerticalAlignment="Top" Width="72" Click="LoadButton_Click"/>
+        <Button x:Name="recognizeButton" Content="Recognize" HorizontalAlignment="Left" Margin="463,3,0,0" VerticalAlignment="Top" Width="74" Click="RecognizeButton_Click"/>
         <TextBlock x:Name="outputTxtBox" HorizontalAlignment="Left" Margin="15,498,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="71" Width="750" Background="#FFE5E5E5"><Run Background="#FF9D9D9D"/></TextBlock>
-        <Button x:Name="rotateBtn" Content="Rotate" HorizontalAlignment="Left" Margin="428,3,0,0" VerticalAlignment="Top" Width="67" Click="Rotate_Click"/>
-        <RadioButton x:Name="bgRadBtn" Content="BG" HorizontalAlignment="Left" Margin="731,8,0,0" VerticalAlignment="Top"/>
-        <RadioButton x:Name="enRadBtn" Content="EN" HorizontalAlignment="Left" Margin="689,8,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="externalFileCheckBox" Content="External file" HorizontalAlignment="Left" Margin="579,7,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="rotateBtn" Content="Rotate" HorizontalAlignment="Left" Margin="391,3,0,0" VerticalAlignment="Top" Width="67" Click="Rotate_Click"/>
+        <RadioButton x:Name="bgRadBtn" Content="BG" HorizontalAlignment="Left" Margin="694,8,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="enRadBtn" Content="EN" HorizontalAlignment="Left" Margin="652,8,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="externalFileCheckBox" Content="External file" HorizontalAlignment="Left" Margin="542,7,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="settingsBtn" HorizontalAlignment="Left" Margin="747,3,0,0" VerticalAlignment="Top" Width="27" IsDefault="True" Height="21" Click="settingsBtn_Click">
+            <Image Source="settings.png" Height="17" />
+        </Button>
 
     </Grid>
 </Window>

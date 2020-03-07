@@ -1,32 +1,20 @@
 ﻿using Microsoft.Win32;
 using NFRV;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Path = System.IO.Path;
 
 namespace KZ
 {
 
     public partial class MainWindow : Window
     {
-        private const string tempFileName = "tempFile.png";
         System.Drawing.Bitmap input;
         System.Drawing.Bitmap output;
         private bool IsSelecting = false;
@@ -39,6 +27,7 @@ namespace KZ
         int endX = 0;
         int endY = 0;
         double imgScale = 1;
+
         OCRInterface ocrInterface = new OCRInterface();
 
         public MainWindow()
@@ -48,6 +37,17 @@ namespace KZ
             AddHandler(FrameworkElement.MouseLeftButtonUpEvent, new MouseButtonEventHandler(Canvas_MouseLeftButtonUp), true);
             AddHandler(FrameworkElement.MouseMoveEvent, new MouseEventHandler(Canvas_MouseMove), true);
             this.bgRadBtn.IsChecked = true;
+            Configuration.LoadConfiguration();
+            object webServer = App.Current.Properties["WebServer"];
+            if(webServer == null)
+            {
+                Configuration configWindow = new Configuration();
+                configWindow.ShowDialog();
+            }
+            else
+            {
+                this.ocrInterface.webServer = webServer.ToString();
+            }
         }
 
         private void Canvas_MouseMove(object sender, MouseEventArgs e)
@@ -146,6 +146,8 @@ namespace KZ
         }
         private void Rotate_Click(object sender, RoutedEventArgs e)
         {
+            if (input == null)
+                return;
             input.RotateFlip(System.Drawing.RotateFlipType.Rotate90FlipNone);
             this.ReloadImage();
         }
@@ -159,9 +161,15 @@ namespace KZ
                 imgScale = canvas.Height / input.Height;
             endX = (int)(input.Width * imgScale);
             endY = (int)(input.Height * imgScale);
+
+            canvas.Children.Clear();
+            rect = null;
+
         }
         private void RecognizeButton_Click(object sender, RoutedEventArgs e)
         {
+            if (input == null)
+                return;
             prepareRegion();
             prepareOutput();
             System.Drawing.Rectangle cropArea = new System.Drawing.Rectangle(startX, startY, endX-startX, endY-startY);
@@ -231,12 +239,18 @@ namespace KZ
         private async Task recognizeSelected_ClickAsync()
         {
             ocrInterface.image = output;
+            this.ocrInterface.language = this.bgRadBtn.IsChecked == true ? "bul" : "eng";
             outputTxtBox.Text = ocrInterface.Recognize();
             if (externalFileCheckBox.IsChecked == true)
             {
                 this.SaveExternal();
             }
         }
-        
+
+        private void settingsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Configuration configWindow = new Configuration();
+            configWindow.ShowDialog();
+        }
     }
 }
